@@ -1,9 +1,5 @@
 #!/bin/bash
 
-fancy_echo() {
-  printf "\n%b\n" "$1"
-}
-
 echo "-----Start bootstrap for production-----"
 sudo apt-get update
 sudo apt-get -y install git-core curl vim openssl libtool bison imagemagick autoconf libncurses5-dev\
@@ -41,7 +37,7 @@ printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.bashrc
 
 rbenv bootstrap-ubuntu-12-04
 ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
-fancy_echo "Installing Ruby $ruby_version ..."
+printf "Installing Ruby $ruby_version ..."
 rbenv install -s "$ruby_version"
 rbenv global "$ruby_version"
 rbenv rehash
