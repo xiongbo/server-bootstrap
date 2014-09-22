@@ -8,8 +8,9 @@ sudo apt-get -y install git-core curl vim openssl libtool bison imagemagick auto
 
 echo "-----Install nodejs-----"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.16.0/install.sh | bash
-nvm install 0.10
-nvm use 0.10
+nodejs_version="$(curl -sSL https://raw.githubusercontent.com/kcbxlk/server-bootstrap/master/versions/nodejs)"
+nvm install "$nodejs_version"
+nvm use "$nodejs_version"
 echo "registry = http://registry.cnpmjs.org" >> ~/.npmrc
 npm install -g express supervisor
 
@@ -35,12 +36,14 @@ echo "Changing your shell to zsh ..."
 chsh -s $(which zsh)
 
 echo "-----Install ruby by rbenv-----"
-curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
+git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+git clone git://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
+git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
 printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.zshrc
 printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.zshrc
 
-rbenv bootstrap-ubuntu-12-04
-ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
+ruby_version="$(curl -sSL https://raw.githubusercontent.com/kcbxlk/server-bootstrap/master/versions/ruby)"
 printf "Installing Ruby $ruby_version ..."
 rbenv install -s "$ruby_version"
 rbenv global "$ruby_version"

@@ -2,5 +2,5 @@
 
 #### Production
 ```
-bash <(wget -O- https://github.com/kcbxlk/server-bootstrap/blob/master/production.sh)
+bash <(wget -O- https://raw.githubusercontent.com/kcbxlk/server-bootstrap/master/production.sh)
 ```

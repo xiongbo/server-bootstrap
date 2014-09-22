@@ -31,12 +31,14 @@ if [ $dorm = Y ]; then
 fi
 
 echo "-----Install ruby by rbenv-----"
-curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
+git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+git clone git://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
+git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
 printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.bashrc
 printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.bashrc
 
-rbenv bootstrap-ubuntu-12-04
-ruby_version="$(curl -sSL http://ruby.thoughtbot.com/latest)"
+ruby_version="$(curl -sSL https://raw.githubusercontent.com/kcbxlk/server-bootstrap/master/versions/ruby)"
 printf "Installing Ruby $ruby_version ..."
 rbenv install -s "$ruby_version"
 rbenv global "$ruby_version"
