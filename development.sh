@@ -42,6 +42,7 @@ git clone git://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbe
 git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
 printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.zshrc
 printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.zshrc
+source ~/.zshrc
 
 ruby_version="$(curl -sSL https://raw.githubusercontent.com/kcbxlk/server-bootstrap/master/versions/ruby)"
 printf "Installing Ruby $ruby_version ..."
