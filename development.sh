@@ -8,7 +8,7 @@ sudo apt-get -y install git-core curl vim openssl libtool bison imagemagick auto
 
 echo "-----Install nodejs-----"
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.16.0/install.sh | bash
-nodejs_version="$(curl -sSL https://raw.githubusercontent.com/kcbxlk/server-bootstrap/master/versions/nodejs)"
+nodejs_version="$(curl -sSL https://raw.githubusercontent.com/Techbay/server-bootstrap/master/versions/nodejs)"
 nvm install "$nodejs_version"
 nvm use "$nodejs_version"
 echo "registry = http://registry.cnpmjs.org" >> ~/.npmrc
@@ -44,7 +44,7 @@ printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.zshrc
 printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.zshrc
 source ~/.zshrc
 
-ruby_version="$(curl -sSL https://raw.githubusercontent.com/kcbxlk/server-bootstrap/master/versions/ruby)"
+ruby_version="$(curl -sSL https://raw.githubusercontent.com/Techbay/server-bootstrap/master/versions/ruby)"
 printf "Installing Ruby $ruby_version ..."
 rbenv install -s "$ruby_version"
 rbenv global "$ruby_version"
