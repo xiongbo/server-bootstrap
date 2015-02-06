@@ -1,9 +1,14 @@
 #!/bin/bash
 
+function re_source {
+  xdotool type 'source ~/.bashrc'
+  xdotool key Return
+}
+
 echo "-----Start bootstrap for production-----"
 sudo apt-get update
 sudo apt-get -y install git-core curl vim openssl libtool bison imagemagick autoconf libncurses5-dev\
-  build-essential libc6-dev libreadline6 libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev
+  build-essential libc6-dev libreadline6 libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev libffi-dev
 
 echo "-----Install nodejs-----"
 sudo apt-get -y install python-software-properties python g++ make
@@ -37,7 +42,7 @@ git clone git://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbe
 git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
 printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.bashrc
 printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.bashrc
-source ~/.bashrc
+re_source
 
 ruby_version="$(curl -sSL https://raw.githubusercontent.com/Techbay/server-bootstrap/master/versions/ruby)"
 printf "Installing Ruby $ruby_version ..."
