@@ -1,0 +1,55 @@
+#!/bin/bash
+
+echo "-----Start bootstrap for production-----"
+sudo apt-get update
+sudo apt-get -y install git-core curl vim openssl libtool bison imagemagick autoconf libncurses5-dev\
+  build-essential libc6-dev libreadline6 libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev\
+  exuberant-ctags libsqlite3-dev sqlite3 tmux
+
+echo "-----Install nodejs-----"
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.16.0/install.sh | bash
+nodejs_version="$(curl -sSL https://raw.githubusercontent.com/Techbay/server-bootstrap/master/versions/nodejs)"
+nvm install "$nodejs_version"
+nvm use "$nodejs_version"
+echo "registry = http://registry.cnpmjs.org" >> ~/.npmrc
+npm install -g express supervisor
+
+echo "-----Install Database-----"
+echo "Well you need to install mysql?(Y/N) (default: N) __"
+read dorx
+dorx=${dorx:=N}
+if [ $dorx = Y ]; then
+  sudo apt-get -y install mysql-server libmysqlclient-dev
+fi
+
+echo "Well you need to install postgresql?(Y/N) (default: N) __"
+read dory
+dory=${dory:=N}
+if [ $dory = Y ]; then
+  sudo apt-get -y install postgresql libpq-dev
+fi
+
+echo "-----Install Zsh-----"
+sudo apt-get -y install zsh
+wget --no-check-certificate http://install.ohmyz.sh -O - | sh
+echo "Changing your shell to zsh ..."
+chsh -s $(which zsh)
+
+echo "-----Install ruby by rbenv-----"
+git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+git clone git://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
+git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
+printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.zshrc
+printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.zshrc
+source ~/.zshrc
+
+ruby_version="$(curl -sSL https://raw.githubusercontent.com/xiongbo/server-bootstrap/master/versions/ruby)"
+printf "Installing Ruby $ruby_version ..."
+rbenv install -s "$ruby_version"
+rbenv global "$ruby_version"
+rbenv rehash
+
+gem update --system
+gem install bundler rake --no-document
+rbenv rehash
