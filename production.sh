@@ -40,10 +40,10 @@ git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
 git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 git clone git://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
 git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
-printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.bashrc
-printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.bashrc
+printf 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+printf 'eval "$(rbenv init - --no-rehash)"' >> ~/.zshrc
 sudo chown -R deploy:deploy ~/.rbenv/
-source ~/.bashrc
+source ~/.zshrc
 
 ruby_version="$(curl -sSL https://raw.githubusercontent.com/xiongbo/server-bootstrap/master/versions/ruby)"
 printf "Installing Ruby $ruby_version ..."
