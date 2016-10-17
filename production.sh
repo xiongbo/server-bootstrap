@@ -35,6 +35,13 @@ if [ $dorm = Y ]; then
   sudo apt-get -y install postgresql libpq-dev
 fi
 
+echo "Well you need to install postgresql-client?(Y/N) (default: N) __"
+read dorm
+dorm=${dorm:=N}
+if [ $dorm = Y ]; then
+  sudo apt-get -y install postgresql-client libpq-dev
+fi
+
 echo "-----Install ruby by rbenv-----"
 git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
 git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
