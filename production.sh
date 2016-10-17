@@ -8,7 +8,7 @@ function re_source {
 echo "-----Start bootstrap for production-----"
 sudo apt-get update
 sudo apt-get -y install git-core curl vim openssl libtool bison imagemagick autoconf libncurses5-dev\
-  build-essential libc6-dev libreadline6 libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev libffi-dev
+  build-essential libc6-dev libreadline6 libreadline6-dev zlib1g zlib1g-dev libssl-dev libyaml-dev libffi-dev libcurl4-openssl-dev libpq-dev
 
 echo "-----Install nodejs-----"
 sudo apt-get -y install python-software-properties python g++ make
@@ -40,12 +40,12 @@ git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
 git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 git clone git://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
 git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
-echo -e 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.zshrc
-echo -e 'eval "$(rbenv init - --no-rehash)"' >> ~/.zshrc
+echo -e 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.bashrc
+echo -e 'eval "$(rbenv init - --no-rehash)"' >> ~/.bashrc
 sudo chown -R deploy:deploy ~/.rbenv/
-source ~/.zshrc
+. ./bashrc
 
-ruby_version="$(curl -sSL https://raw.githubusercontent.com/xiongbo/server-bootstrap/master/versions/ruby)"
+ruby_version="2.3.0"
 printf "Installing Ruby $ruby_version ..."
 rbenv install "$ruby_version"
 rbenv global "$ruby_version"
